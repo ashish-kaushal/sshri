@@ -1,0 +1,48 @@
+<div class="aside-widget">
+    <header>
+        <h3>Research News</h3>
+    </header>
+    <div>
+        <!-- start feedwind code --> <script type="text/javascript" src="https://feed.mikle.com/js/fw-loader.js" data-fw-param="55287/"></script> <!-- end feedwind code -->
+    </div>
+</div>
+
+<div class="aside-widget">
+    <header>
+        <h3>Health News</h3>
+    </header>
+    <div>   
+        <!-- start feedwind code --> <script type="text/javascript" src="https://feed.mikle.com/js/fw-loader.js" data-fw-param="55284/"></script> <!-- end feedwind code --> 
+        <!--<script src="//rss.bloople.net/?url=http%3A%2F%2Ffeeds.bbci.co.uk%2Fnews%2Fworld%2Frss.xml&detail=200&limit=5&showtitle=false&type=js"></script>-->
+    </div>
+</div>   
+
+<div class="aside-widget">
+    <header>
+        <h3>Tags</h3>
+    </header>
+    <div class="body clearfix">
+        <ul class="tags">
+            {% for tag, articles in tags|sort %}
+                <li class="dropdown active">
+                    {% set num = articles|count %} 
+                    <a class="dropdown-toggle"
+                        data-toggle="dropdown" href="{{ SITEURL }}/tags.html#{{ tag.slug }}-ref">{{ tag }} <span class='sup'>{{ num }}</span> 
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        {% for article in articles|sort(reverse = true, attribute = 'date') %}
+                            <li><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}, {{ article.date|strftime('%d %B %Y') }} 
+                                {%if article.subtitle %} <small> {{ article.subtitle }} </small> {% endif %} 
+                            </a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>     
+    </div>                   
+</div>
+
+
+
+

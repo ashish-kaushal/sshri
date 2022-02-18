@@ -1,0 +1,14 @@
+image: {photo}thumb/blog2.png
+
+![](photos/thumb/blog2t.jpg)
+
+
+DEBUG: Template list: ['!simple/archives.html', '!simple/article.html', '!simple/author.html',
+'!simple/authors.html', '!simple/base.html', '!simple/categories.html', '!simple/category.html',
+'!simple/gosquared.html', '!simple/index.html', '!simple/page.html', '!simple/pagination.html',
+'!simple/period_archives.html', '!simple/tag.html', '!simple/tags.html', '!simple/translations.html',
+'archives.html', 'article.html', 'author.html', 'authors.html', 'base.html', 'categories.html', 'category.html',
+'gosquared.html', 'includes/article_header.html', 'includes/article_header_date.html', 'includes/article_header_info.html',
+'includes/article_header_title.html', 'includes/pagination.html', 'includes/sidebar_article.html', 'includes/sidebar_main.html',
+'includes/social_big_icons', 'includes/social_likeus.html', 'includes/social_shareus.html', 'index.html', 'page.html',
+'pagination.html', 'period_archives.html', 'tag.html', 'tags.html', 'translations.html']

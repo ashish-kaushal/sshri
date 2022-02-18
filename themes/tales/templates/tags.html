@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+<div class="col-md-6 col-md-offset-3 tales-superblock">
+    {% block content %}
+        <header>
+            <h3>Tags List</h3>
+        </header>
+        
+        {% for tag, articles in tags|sort %}
+            <li class="dropdown active">
+                <a class="dropdown-toggle"
+                data-toggle="dropdown"
+                href="#">
+                    {{ tag.slug }}
+                    <b class="caret"></b>
+                </a>
+                
+                <ul class="dropdown-menu">
+                    {% for article in articles|sort(reverse = true, attribute = 'date') %}
+                        <li><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}, {{ article.date|strftime('%d %B %Y') }} 
+                            {%if article.subtitle %} <small> {{ article.subtitle }} </small> {% endif %} </a></li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    {% endblock content %}
+</div>

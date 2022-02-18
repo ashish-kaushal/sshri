@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %} {{ super() }} {{ page_name }} {% endblock %}
+
+{% block header1 %} {% include "navbar-header1-authors.html" %}  {% endblock header1 %}
+
+{% block header2 %}
+<div class="widewrapper subheader">
+    <div class="container">
+        <div class="tales-breadcrumb">
+            <a href="{{ SITEURL }}/" title="Home">
+            <i class="fa fa-home fa-fw fa-lg"></i></a>
+            <span class="separator">&#x2F;</span>
+            <a href="#">Authors</a>
+        </div>
+        <div class="tales-searchbox">
+            <form action="#" method="get" accept-charset="utf-8">
+                <button class="searchbutton" type="submit">
+                    <i class="fa fa-search"></i>
+                </button>
+                <input class="searchfield" id="searchbox" type="text" placeholder="Search">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock header2 %}
+
+{% block content %}
+<div class="widewrapper main">
+<div class="container content">
+      <h1>Our Authors</h1>
+      <hr>
+      <div class="row credits">
+      {% for author, articles in authors|sort %}
+
+            <div class="col-md-2 col-sm-4 image">
+                <a href="{{ SITEURL }}/{{ author.url }}"><img src="{{ THUMBNAIL_DIR }}thumb/{{ author }}.png" class="img-responsive" alt="author-image" ></a>
+            </div>
+          <div class="col-md-4 col-sm-8 details">
+                  <div class="author">
+                      <span class="bold"><a href="{{ author.url }}" target="_blank">{{ author }}</a></span>
+                  </div>
+                  <div class="link">
+                      <span class="bold">Total Articles:</span> <!-- articles count -->
+                      <span><a href="{{ SITEURL }}/{{ author.url }}" target="_blank">{{ articles|count }}</a></span>
+                  </div>
+                  <div class="license">
+                    <span class="bold">Expertise:</span>
+                    {% for article in articles %} {# loop within articles to get article.category shown as expertise #}
+                      <a href="category/{{ article.category }}.html" target="_blank"> {{ article.category }} </a>
+                    {% endfor %}
+                  </div>
+            </div>
+
+      {% endfor %}
+      </div>
+
+ </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+    {% block head %}
+    {{ super() }}
+
+    {% for keyword in article.keywords %}
+        <meta name="keywords" contents="{{keyword}}" />
+    {% endfor %}
+
+    {% for description in article.description %}
+        <meta name="description" contents="{{description}}" />
+    {% endfor %}
+
+    {% for tag in article.tags %}
+        <meta name="tags" contents="{{tag}}" />
+    {% endfor %}
+
+    {% endblock head %}
+
+    {% block opengraph %}
+    {{ super() }}
+    <meta property="og:type" content="article">
+    <meta property="article:author" content="{{ author }}">
+    <meta property="og:url" content="{{ SITEURL }}/{{ article.url }}">
+    <meta property="og:title" content="{{ article.title }}">
+    <meta property="og:description" content="{{ article.headline }}">
+    <meta property="og:image" content="{{ SITEURL }}/theme/images/{{ article.title }}.png">
+    <meta property="article:published_time" content="{{ article.date }}">
+    {% endblock %}
+    {% block header1 %} {% include "navbar-header1-categories.html" %} {% endblock header1 %}
+    {% block header2 %}
+    <div class="widewrapper subheader">
+        <div class="container">
+            <div class="tales-breadcrumb">
+                <a href="{{ SITEURL }}/" title="Home">
+                <i class="fa fa-home fa-fw fa-lg"></i></a>
+                <span class="separator">&#x2F;</span>
+                <a href="{{ SITEURL }}/{{ category.url }}">{{ article.category }}</a>
+                <span class="separator">&#x2F;</span>
+                <a href="#">{{ article.title }}</a>
+            </div>
+
+            <div class="tales-searchbox">
+                <form action="#" method="get" accept-charset="utf-8">
+                    <button class="searchbutton" type="submit">
+                        <i class="fa fa-search"></i>
+                    </button>
+                    <input class="searchfield" id="searchbox" type="text" placeholder="Search">
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endblock header2 %}
+    {% block fbcomments %}
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.11';
+        fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+    {% endblock fbcomments %}
+    
+    {% block content %}
+    <div class="widewrapper main">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 blog-main">
+                <article class="blog-post">
+                    <header>
+                        <h1>{{ article.title|striptags|e }}</h1>
+                        <div class="lead-image">
+                            <img src="{{ THUMBNAIL_DIR }}medium/{{ article.title }}.png" alt="{{ article.title }}"/>
+                            
+                            <div class="meta clearfix">
+                                <div class="author">
+                                    <i class="fa fa-user"></i>
+                                    <span class="data"><a href="{{ SITEURL }}/authors.html">{{ article.author }}</a></span>
+                                </div>
+                                <div class="date">
+                                    <i class="fa fa-calendar"></i>
+                                    <span class="data">{{ article.date|strftime('%d %B %Y') }}</span>
+                                </div>
+                                <div class="comments">
+                                    <i class="fa fa-comments"></i>
+                                    <span class="data"><a href="#comments">26 Comments</a></span>
+                                </div>                                
+                            </div>
+                        </div>
+                    </header>
+                    <div class="body">
+                        {{ article.content }}
+                    </div>
+                    <div> 
+                        <!-- AddToAny BEGIN -->
+                        <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+                        <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+                        <a class="a2a_button_facebook"></a>
+                        <a class="a2a_button_twitter"></a>
+                        <a class="a2a_button_linkedin"></a>
+                        <a class="a2a_button_google_plus"></a>
+                        <a class="a2a_button_pinterest"></a>
+                        <a class="a2a_button_tumblr"></a>
+                        <a class="a2a_button_stumbleupon"></a>
+                        <a class="a2a_button_whatsapp"></a>
+                        <a class="a2a_button_email"></a>
+                        <a class="a2a_button_reddit"></a>
+                        </div>
+                        <script>
+                        var a2a_config = a2a_config || {};
+                        a2a_config.linkurl = "http://abodewithin.com/{{ article.title }}";
+                        </script>
+                        <script async src="https://static.addtoany.com/menu/page.js"></script>
+                        <!-- AddToAny END -->
+
+                        
+                    </div>
+                    <div class="fb-comments" data-href="http://abodewithin.com/{{ article.url }}.html" data-width="740" data-numposts="5"></div>
+                </article>
+            </div>
+            <!-- Sidebar -ashish -->
+            {% block sidebar %}
+                {% if SIDEBAR_ARTICLE %}
+                    <aside class="col-md-4 blog-aside">
+                        {% include "includes/" + SIDEBAR_ARTICLE %}
+                    </aside>
+                {% endif %}
+            {% endblock %}
+            <!-- End sidebar -->            
+        </div>
+        
+    </div>
+    </div>
+    {% endblock content %}

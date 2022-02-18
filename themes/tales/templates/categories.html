@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block header1 %} {% include "navbar-header1-categories.html" %} {% endblock header1 %}
+{% block title %} {{ super() }} {{ page_name }} {% endblock %}
+{% block header2 %}
+<div class="widewrapper subheader">
+    <div class="container">
+        <div class="tales-breadcrumb">
+            <a href="{{ SITEURL }}/" title="Home">
+            <i class="fa fa-home fa-fw fa-lg"></i></a>
+            <span class="separator">&#x2F;</span>
+            <a href="#">Categories</a>
+        </div>
+
+        <div class="tales-searchbox">
+            <form action="#" method="get" accept-charset="utf-8">
+                <button class="searchbutton" type="submit">
+                    <i class="fa fa-search"></i>
+                </button>
+                <input class="searchfield" id="searchbox" type="text" placeholder="Search">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock header2 %}
+{% block content %}
+    <div class="widewrapper main">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 blog-main">
+                    <article class="blog-post">
+                            {% for category, articles in categories|sort %}
+                                 <h1>{{ category }}</h1>
+                                        {% for article in articles %}
+                                        <div article class="blog-teaser">
+                                            <a href="{{ SITEURL }}/{{ article.url }}"><img src="{{ THUMBNAIL_DIR }}thumb/{{ article.title }}.png" alt="{{ article.title }}"/>{{ article.summary }}</a>
+                                        </div>
+                                   {% endfor %}
+                            {% endfor %}
+                    </article>      
+                </div> 
+            <!-- Sidebar -ashish -->
+            {% block sidebar %}
+                {% if SIDEBARMAIN %}
+                    <aside class="col-md-4 blog-aside">
+                        {% include "includes/" + SIDEBARMAIN %}
+                    </aside>
+                {% endif %}
+            {% endblock %}
+            <!-- End sidebar -->         
+        </div>
+    </div>  
+{% endblock %}

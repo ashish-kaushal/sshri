@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %} {{ super() }} Home {% endblock %}
+{% block header1 %} {% include "navbar-header1-index.html" %} {% endblock header1 %}
+{% block header2 %} {% include "navbar-header2-index.html" %} {% endblock header2 %}
+{% block content %}
+<div class="widewrapper main">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 blog-main">
+                <div class="row">
+                {% for article in articles_page.object_list %} {# for loop start here #}
+                    <div class="col-md-6 col-sm-6">
+                        <article class="blog-teaser">
+                            <header>
+                               <img src="{{ THUMBNAIL_DIR }}thumb/{{ article.title }}.png" alt="{{ article.title }}"/>
+                                <h3><a href="{{ SITEURL }}/{{ article.url }}"> {{ article.title }}</a></h3>
+                                <span class="meta"> {{ article.date|strftime('%d %B %Y') }},
+                                    {% for author in article.authors %}
+                                        <a href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
+                                    {% endfor %}
+                                </span>
+                                {% include "includes/" + SHAREUS %}
+                            </header>
+                            <div class="body" >
+                                {% if article.summary %}
+                                    {{ article.summary|truncate(200) }} {{ article.image }}
+                                {% endif %}
+                            </div>
+                            <div class="clearfix">
+                                <a href="{{ SITEURL }}/{{ article.url }}" class="btn btn-tales-one">Read more</a>
+                            </div>
+                        </article>
+                    </div>
+                {% endfor %} {# for loop ends here #}
+                </div> <!-- end /div row -->
+                {% include "includes/pagination.html" %}
+
+            </div>
+
+            <!-- Sidebar -ashish -->
+            {% if SIDEBARMAIN %}
+                <aside class="col-md-4 blog-aside">
+                    {% include "includes/" + SIDEBARMAIN %}
+                </aside>
+            {% endif %}
+            <!-- End sidebar -->
+        </div>
+    </div>
+</div>
+{% endblock content %}

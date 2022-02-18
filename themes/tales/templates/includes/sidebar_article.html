@@ -1,0 +1,63 @@
+
+<div class="aside-widget">
+    <header>
+        <h3>More Articles from {{ article.author }}</h3>
+    </header>
+    <div class="body">
+        <ul class="tales-list">
+                {% for  a in articles %}
+                {% if a.author == article.author and a.title != article.title %}
+                    <li><a href="{{ a.url }}">{{ a.title }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+        </ul>
+    </div>
+</div>
+
+<div class="aside-widget">
+    <header>
+        <h3> More Articles on {{ article.category }} </h3>
+    </header>
+    <div class="body">
+        <ul class="tales-list">
+            {# get articles on category from other authors #}
+            {% for  a in articles %}
+                {% if a.category == article.category and a.author != article.author %}
+                    <li><a href="{{ a.url }}">{{ a.title }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+        </ul>
+    </div>
+</div>   
+ 
+<div class="aside-widget">
+    <header>
+        <h3>Tags</h3>
+    </header>
+    <div class="body clearfix">
+        <ul class="tags">
+            {% for tag, articles in tags|sort %}
+                <li class="dropdown active">
+                    {% set num = articles|count %} 
+                    <a class="dropdown-toggle"
+                        data-toggle="dropdown" href="{{ SITEURL }}/tags.html#{{ tag.slug }}-ref">{{ tag }} <span class='sup'>{{ num }}</span> 
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        {% for article in articles|sort(reverse = true, attribute = 'date') %}
+                            <li><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}, {{ article.date|strftime('%d %B %Y') }} 
+                                {%if article.subtitle %} <small> {{ article.subtitle }} </small> {% endif %} 
+                            </a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>     
+    </div>                   
+</div>
+
+
+
+
